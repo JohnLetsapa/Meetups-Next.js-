@@ -3,25 +3,6 @@ import Head from 'next/head';
 import { MongoClient } from 'mongodb';
 import MeetupList from '../components/meetups/MeetupList';
 
-const DUMMY_MEETUPS = [
-  {
-    id: 'm1',
-    title: 'first Meetup',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Thomas_Wolfe%27s_Home.jpg/400px-Thomas_Wolfe%27s_Home.jpg',
-    address: '1024 Some Street, Suburb, Jozi, 2000',
-    description: 'This is the First Meetup',
-  },
-  {
-    id: 'm2',
-    title: 'second Meetup',
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/2019_02_Rustic_Barista_Specialty_Coffee_Korat_01.jpg/440px-2019_02_Rustic_Barista_Specialty_Coffee_Korat_01.jpg',
-    address: '1024 Some Street, Suburb, Jozi, 2000',
-    description: 'This is the Second Meetup',
-  },
-];
-
 function Home(props) {
   // passed in from the getStaticProps function below, which runs before this component loads
 
@@ -34,7 +15,7 @@ function Home(props) {
           content="Browse a huge list of highly active React Meetups!"
         />
       </Head>
-      <MeetupList meetups={props.meetups} />;
+      <MeetupList meetups={props.meetups} />
     </Fragment>
   );
 }
@@ -66,7 +47,7 @@ export async function getStaticProps() {
         id: meetup._id.toString(),
       })),
     },
-    revalidate: 10, // this regenerates props, fetches newer props every 10 seconds.
+    revalidate: 1, // this regenerates props, fetches newer props every 10 seconds.
   }; // to ensure that, Static props, which are generated during the build process
 } // are updated to reflect new information. time frequency depends on the nature of the application.
 

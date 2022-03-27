@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   client.close();
 
   return {
-    fallback: false, // this means the paths object contains ALL the supported id values --> any id entered outside of the paths object will receive a 404 error
+    fallback: 'blocking', // this means the paths object contains ALL the supported id values --> any id entered outside of the paths object will receive a 404 error
     paths: meetups.map((meetup) => ({
       params: { meetupId: meetup._id.toString() },
     })),
@@ -66,7 +66,7 @@ export async function getStaticProps(context) {
         address: singleMeetUp.address,
       },
     },
-    revalidate: 10,
+    revalidate: 1,
   };
 }
 
